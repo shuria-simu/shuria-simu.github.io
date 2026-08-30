@@ -1,4 +1,30 @@
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const STORAGE_BUCKET = "portfolio";
+
+async function uploadImage(file, folder="general"){
+  if(!file) return null;
+
+  const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+  const safeExt = ext.replace(/[^a-z0-9]/g,"") || "jpg";
+  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2,8)}.${safeExt}`;
+  const path = `${folder}/${fileName}`;
+
+  const { error } = await db.storage
+    .from(STORAGE_BUCKET)
+    .upload(path, file, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: file.type || undefined
+    });
+
+  if(error) throw error;
+
+  const { data } = db.storage
+    .from(STORAGE_BUCKET)
+    .getPublicUrl(path);
+
+  return data.publicUrl;
+}
 const loginView=document.getElementById("loginView"), dashboardView=document.getElementById("dashboardView"), content=document.getElementById("adminContent");
 
 function authEmail(userId){
@@ -64,16 +90,59 @@ window.projectForm=(x={})=>{
   <section class="admin-section"><form id="projectForm" class="admin-form">
   <div class="row"><input name="title" placeholder="Title" value="${attr(x.title)}" required><input name="category" placeholder="Category" value="${attr(x.category)}"></div>
   <div class="row"><input name="year" type="number" placeholder="Year" value="${attr(x.year)}"><input name="sort_order" type="number" placeholder="Sort Order" value="${attr(x.sort_order||0)}"></div>
-  <input name="thumbnail_url" placeholder="Thumbnail Image URL" value="${attr(x.thumbnail_url)}">
+
+  <label>Thumbnail Image
+    <input id="projectImageFile" type="file" accept="image/*">
+  </label>
+
+  ${x.thumbnail_url ? `<div><small>Current Image</small><img src="${attr(x.thumbnail_url)}" style="margin-top:8px;width:180px;height:120px;object-fit:cover;border-radius:14px;border:1px solid #eadde3"></div>` : ""}
+
   <textarea name="description" rows="5" placeholder="Description">${esc(x.description||"")}</textarea>
   <label><input name="featured" type="checkbox" ${x.featured?"checked":""}> Featured</label>
   <label><input name="published" type="checkbox" ${x.published?"checked":""}> Published</label>
-  <button class="btn dark">Save Project</button></form></section>`;
+  <button class="btn dark" id="projectSaveBtn">Save Project</button>
+  <p id="projectUploadStatus"></p>
+  </form></section>`;
+
   document.getElementById("projectForm").onsubmit=async e=>{
-    e.preventDefault(); const f=new FormData(e.currentTarget); const p=Object.fromEntries(f.entries());
-    p.year=p.year?Number(p.year):null;p.sort_order=Number(p.sort_order||0);p.featured=f.get("featured")==="on";p.published=f.get("published")==="on";
-    let q=x.id?db.from("projects").update(p).eq("id",x.id):db.from("projects").insert(p); const {error}=await q;
-    if(error)return alert(error.message);showProjects();
+    e.preventDefault();
+
+    const btn=document.getElementById("projectSaveBtn");
+    const status=document.getElementById("projectUploadStatus");
+    btn.disabled=true;
+    btn.textContent="Saving...";
+    status.textContent="";
+
+    try{
+      const f=new FormData(e.currentTarget);
+      const p=Object.fromEntries(f.entries());
+
+      delete p.projectImageFile;
+
+      p.year=p.year?Number(p.year):null;
+      p.sort_order=Number(p.sort_order||0);
+      p.featured=f.get("featured")==="on";
+      p.published=f.get("published")==="on";
+
+      const file=document.getElementById("projectImageFile").files[0];
+      if(file){
+        status.textContent="Uploading image...";
+        p.thumbnail_url=await uploadImage(file,"projects");
+      }
+
+      let q=x.id
+        ? db.from("projects").update(p).eq("id",x.id)
+        : db.from("projects").insert(p);
+
+      const {error}=await q;
+      if(error) throw error;
+
+      showProjects();
+    }catch(err){
+      status.textContent=err.message || "Could not save project.";
+      btn.disabled=false;
+      btn.textContent="Save Project";
+    }
   };
 };
 
@@ -107,18 +176,84 @@ async function showMessages(){
 
 async function showSettings(){
   const {data:x={}}=await db.from("settings").select("*").eq("id",1).maybeSingle();
+
   content.innerHTML=`<div class="admin-head"><div><span>WEBSITE</span><h1>Settings</h1></div></div><section class="admin-section">
   <form id="settingsForm" class="admin-form">
-  <input name="profile_image" placeholder="Profile Image URL" value="${attr(x.profile_image)}">
-  <input name="resume_url" placeholder="Resume URL" value="${attr(x.resume_url)}">
+
+  <label>Profile Photo
+    <input id="profileImageFile" type="file" accept="image/*">
+  </label>
+  ${x.profile_image ? `<div><small>Current Profile Photo</small><img src="${attr(x.profile_image)}" style="margin-top:8px;width:140px;height:170px;object-fit:cover;border-radius:18px;border:1px solid #eadde3"></div>` : ""}
+
+  <label>Resume PDF
+    <input id="resumeFile" type="file" accept="application/pdf">
+  </label>
+  ${x.resume_url ? `<p><a target="_blank" href="${attr(x.resume_url)}">Current Resume ↗</a></p>` : ""}
+
   <input name="email" placeholder="Contact Email" value="${attr(x.email)}">
   <textarea name="hero_text" rows="3" placeholder="Hero Text">${esc(x.hero_text||"")}</textarea>
   <textarea name="about_text" rows="5" placeholder="About Text">${esc(x.about_text||"")}</textarea>
   <div class="row"><input name="speciality" placeholder="Speciality" value="${attr(x.speciality)}"><input name="location" placeholder="Location" value="${attr(x.location)}"></div>
   <div class="row"><input name="languages" placeholder="Languages" value="${attr(x.languages)}"><input name="status" placeholder="Status" value="${attr(x.status)}"></div>
   <div class="row"><input name="client_count" type="number" placeholder="Client Count" value="${attr(x.client_count)}"><input name="years_creating" type="number" placeholder="Years Creating" value="${attr(x.years_creating)}"></div>
-  <button class="btn dark">Save Settings</button></form></section>`;
-  document.getElementById("settingsForm").onsubmit=async e=>{e.preventDefault();const p=Object.fromEntries(new FormData(e.currentTarget).entries());p.id=1;p.client_count=Number(p.client_count||0);p.years_creating=Number(p.years_creating||0);const {error}=await db.from("settings").upsert(p);if(error)return alert(error.message);alert("Saved");};
+
+  <button class="btn dark" id="settingsSaveBtn">Save Settings</button>
+  <p id="settingsStatus"></p>
+  </form></section>`;
+
+  document.getElementById("settingsForm").onsubmit=async e=>{
+    e.preventDefault();
+
+    const btn=document.getElementById("settingsSaveBtn");
+    const status=document.getElementById("settingsStatus");
+    btn.disabled=true;
+    btn.textContent="Saving...";
+    status.textContent="";
+
+    try{
+      const p=Object.fromEntries(new FormData(e.currentTarget).entries());
+      p.id=1;
+      p.client_count=Number(p.client_count||0);
+      p.years_creating=Number(p.years_creating||0);
+
+      const profileFile=document.getElementById("profileImageFile").files[0];
+      const resumeFile=document.getElementById("resumeFile").files[0];
+
+      if(profileFile){
+        status.textContent="Uploading profile photo...";
+        p.profile_image=await uploadImage(profileFile,"profile");
+      }else if(x.profile_image){
+        p.profile_image=x.profile_image;
+      }
+
+      if(resumeFile){
+        status.textContent="Uploading resume...";
+        const path = `resume/${Date.now()}-${resumeFile.name.replace(/[^a-zA-Z0-9._-]/g,"-")}`;
+        const {error}=await db.storage.from(STORAGE_BUCKET).upload(path,resumeFile,{
+          cacheControl:"3600",
+          upsert:false,
+          contentType:"application/pdf"
+        });
+        if(error) throw error;
+        const {data}=db.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+        p.resume_url=data.publicUrl;
+      }else if(x.resume_url){
+        p.resume_url=x.resume_url;
+      }
+
+      const {error}=await db.from("settings").upsert(p);
+      if(error) throw error;
+
+      status.textContent="Saved successfully ✨";
+      btn.disabled=false;
+      btn.textContent="Save Settings";
+      setTimeout(()=>showSettings(),700);
+    }catch(err){
+      status.textContent=err.message || "Could not save settings.";
+      btn.disabled=false;
+      btn.textContent="Save Settings";
+    }
+  };
 }
 
 window.removeRow=async(table,id,cb)=>{if(!confirm("Delete this item?"))return;const {error}=await db.from(table).delete().eq("id",id);if(error)return alert(error.message);cb();}
