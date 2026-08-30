@@ -175,3 +175,48 @@ on conflict do nothing;
 -- Password: your password
 --
 -- No Gmail/email field is shown to the admin.
+
+
+-- =========================================================
+-- STORAGE: Admin can upload images/PDF directly from admin.html
+-- =========================================================
+
+insert into storage.buckets (id, name, public)
+values ('portfolio', 'portfolio', true)
+on conflict (id) do update set public = true;
+
+-- Public can view files in this public bucket.
+-- Upload/update/delete requires logged-in admin/editor profile.
+
+create policy "portfolio admin upload"
+on storage.objects
+for insert
+to authenticated
+with check (
+  bucket_id = 'portfolio'
+  and public.is_manager()
+);
+
+create policy "portfolio admin update"
+on storage.objects
+for update
+to authenticated
+using (
+  bucket_id = 'portfolio'
+  and public.is_manager()
+)
+with check (
+  bucket_id = 'portfolio'
+  and public.is_manager()
+);
+
+create policy "portfolio admin delete"
+on storage.objects
+for delete
+to authenticated
+using (
+  bucket_id = 'portfolio'
+  and public.is_manager()
+);
+
+-- Public bucket files are served using their public URL.
