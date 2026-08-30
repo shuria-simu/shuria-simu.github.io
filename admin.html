@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shuria Simu — Admin</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="admin-body">
+
+<section id="loginView" class="login-shell">
+  <div class="login-card">
+    <span class="section-title"><span>PRIVATE AREA</span></span>
+    <h1>Admin Login</h1>
+    <p>Only User ID and Password are required.</p>
+    <form id="loginForm">
+      <input id="userId" placeholder="User ID" autocomplete="username" required>
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password" required>
+      <button class="btn dark" type="submit">Login</button>
+      <p id="loginStatus"></p>
+    </form>
+  </div>
+</section>
+
+<section id="dashboardView" class="admin-shell hidden">
+  <aside class="sidebar">
+    <h2>Simu CMS</h2>
+    <nav>
+      <button class="active" data-view="dashboard">Dashboard</button>
+      <button data-view="projects">Portfolio</button>
+      <button data-view="services">Services</button>
+      <button data-view="experience">Experience</button>
+      <button data-view="education">Education</button>
+      <button data-view="awards">Awards</button>
+      <button data-view="testimonials">Testimonials</button>
+      <button data-view="messages">Messages</button>
+      <button data-view="settings">Settings</button>
+    </nav>
+    <div class="logout"><button id="logoutBtn">Logout</button></div>
+  </aside>
+
+  <main class="admin-main">
+    <div id="adminContent"></div>
+  </main>
+</section>
+
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
