@@ -8,7 +8,11 @@ async function loadSettings(){
   if(!data) return;
   if(data.hero_text) document.getElementById("heroText").textContent = data.hero_text;
   if(data.about_text) document.getElementById("aboutText").textContent = data.about_text;
-  if(data.profile_image) document.getElementById("profileImage").src = data.profile_image;
+ if(data.profile_image){
+  const img = document.getElementById("profileImage");
+  img.src = data.profile_image;
+  img.style.display = "block";
+}
   if(data.resume_url){ const r=document.getElementById("resumeLink"); r.href=data.resume_url; }
   if(data.email) document.getElementById("contactEmail").textContent = data.email;
   if(data.speciality) document.getElementById("speciality").textContent = data.speciality;
