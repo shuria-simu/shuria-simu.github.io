@@ -86,4 +86,4 @@ function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&l
 function escAttr(s){return esc(s)}
 function placeholder(){return "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1200&auto=format&fit=crop"}
 
-Promise.allSettled([loadSettings(),loadServices(),loadProjects(),loadExperience(),loadEducation(),loadAwards(),loadTestimonials(),loadSocial()]);
+Promise.allSettled([loadSettings(),loadServices(),loadExperience(),loadEducation(),loadAwards(),loadTestimonials(),loadSocial()]);
