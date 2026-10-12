@@ -180,10 +180,10 @@ async function showSettings(){
   content.innerHTML=`<div class="admin-head"><div><span>WEBSITE</span><h1>Settings</h1></div></div><section class="admin-section">
   <form id="settingsForm" class="admin-form">
 
-  <label>Profile Photo
+  <label>Web Profile Pic
     <input id="profileImageFile" type="file" accept="image/*">
   </label>
-  ${x.profile_image ? `<div><small>Current Profile Photo</small><img src="${attr(x.profile_image)}" style="margin-top:8px;width:140px;height:170px;object-fit:cover;border-radius:18px;border:1px solid #eadde3"></div>` : ""}
+  ${x.profile_image ? `<div><small>Current Web Profile Pic</small><img src="${attr(x.profile_image)}" style="margin-top:8px;width:140px;height:170px;object-fit:cover;border-radius:18px;border:1px solid #eadde3"></div>` : ""}
 
   <label>Resume PDF
     <input id="resumeFile" type="file" accept="application/pdf">
@@ -220,7 +220,7 @@ async function showSettings(){
       const resumeFile=document.getElementById("resumeFile").files[0];
 
       if(profileFile){
-        status.textContent="Uploading profile photo...";
+        status.textContent="Uploading Web Profile Pic...";
         p.profile_image=await uploadImage(profileFile,"profile");
       }else if(x.profile_image){
         p.profile_image=x.profile_image;
