@@ -2,7 +2,7 @@
 /* Brand settings and SEO enhancements for static GitHub Pages + Supabase. */
 (function(){
   const root = 'https://shuria-simu.github.io/';
-  const staticIcon = root + 'favicon.png';
+  const staticIcon = root + 'logo.png';
   const inCategory = /(^|\/)category\.html$/i.test(location.pathname);
   const allowUrl = value => {
     try {const u = new URL(value, location.href);return ['https:','http:'].includes(u.protocol)?u.href:null}
@@ -65,7 +65,7 @@
       setMeta('meta[property="og:image"]',image);
       setMeta('meta[name="twitter:image"]',image);
     }
-    if(data.favicon_url)updateFavicon(data.favicon_url);
+    updateFavicon(data.favicon_url);
     const photo=document.getElementById('profileImage');
     if(photo&&/^(?:(?:center|left|right|\d{1,3}%)(?: (?:center|top|bottom|\d{1,3}%))?)$/i.test(data.portrait_position||''))photo.style.objectPosition=data.portrait_position;
     const node=document.getElementById('seoStructuredData');
