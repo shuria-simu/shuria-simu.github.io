@@ -41,9 +41,9 @@ async function loadEditorial(){
 function paintEditorial(){
  const rows=editorial.category&&editorial.category!=='All'?editorial.projects.filter(x=>x.category?.trim()===editorial.category):editorial.projects;
  const ordered=[...rows].sort((a,b)=>Number(!!b.featured)-Number(!!a.featured)||((a.sort_order||0)-(b.sort_order||0)));
- const shown=editorial.expanded?ordered:ordered.slice(0,6);
+ const shown=editorial.expanded?ordered:ordered.slice(0,4);
  const grid=document.getElementById('portfolioGrid');if(grid)grid.innerHTML=shown.map((p,i)=>projectCard(p,i)).join('')||'<p class="muted">New work is coming soon.</p>';
- const more=document.getElementById('showMoreProjects');if(more){more.hidden=ordered.length<=6;more.textContent=editorial.expanded?'Show less ↑':'View more work ('+(ordered.length-6)+') ↓'}
+ const more=document.getElementById('showMoreProjects');if(more){more.hidden=ordered.length<=4;more.textContent=editorial.expanded?'Show less ↑':'View more work ('+(ordered.length-4)+') ↓'}
  const count=document.getElementById('projectCount');if(count)count.textContent=editorial.projects.length+'+';
 }
 document.getElementById('showMoreProjects')?.addEventListener('click',()=>{editorial.expanded=!editorial.expanded;paintEditorial()});
