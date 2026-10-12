@@ -31,6 +31,13 @@ if(email&&emailLink){
  update();
 }
 // A section without published content should not leave a large empty gap.
+const statusNode=document.getElementById('status');
+const heroStatus=document.getElementById('heroStatus');
+if(statusNode&&heroStatus){
+ const sync=()=>{heroStatus.textContent='✳  '+statusNode.textContent.toUpperCase()};
+ new MutationObserver(sync).observe(statusNode,{childList:true,characterData:true,subtree:true});
+ sync();
+}
 const sectionContents=[
  ['serviceGrid','services'],['experienceList','experience'],['awardGrid','awards'],['testimonialGrid','testimonials']
 ];
@@ -39,7 +46,11 @@ function handleEmptySections(){
   const section=document.getElementById(sectionId),target=document.getElementById(id);
   if(!section||!target)return;
   if(sectionId==='experience'){
-    section.hidden=target.children.length===0&&document.getElementById('educationList')?.children.length===0;
+    const educationList=document.getElementById('educationList');
+    section.hidden=target.children.length===0&&educationList?.children.length===0;
+    target.parentElement.hidden=target.children.length===0;
+    if(educationList) educationList.parentElement.hidden=educationList.children.length===0;
+    section.querySelector('.wow-timeline')?.classList.toggle('wow-timeline-single',target.children.length===0||!educationList?.children.length);
   }else section.hidden=target.children.length===0;
  });
 }
