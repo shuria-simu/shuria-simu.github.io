@@ -46,9 +46,30 @@ const originalSettings=showSettings;
 window.showSettings=async function(){
  await originalSettings();const f=document.getElementById('settingsForm');if(!f)return;
  const {data:s={}}=await db.from('settings').select('*').eq('id',1).maybeSingle();
- const fields=[['brand_name','Brand / Logo Text'],['hero_kicker','Hero Eyebrow'],['hero_title','Main Hero Heading'],['about_heading','About Heading'],['services_heading','Services Heading'],['portfolio_heading','Portfolio Heading'],['experience_heading','Experience Heading'],['awards_heading','Awards Heading'],['testimonials_heading','Testimonials Heading'],['contact_heading','Contact Heading'],['contact_intro','Contact Description'],['footer_text','Footer Text'],['feature_label','Featured Label'],['accent_color','Accent Hex Color']];
+ const fields=[['brand_name','Brand / Logo Text'],['hero_kicker','Hero Eyebrow'],['hero_title','Main Hero Heading'],['about_heading','About Heading'],['services_heading','Services Heading'],['portfolio_heading','Portfolio Heading'],['experience_heading','Experience Heading'],['awards_heading','Awards Heading'],['testimonials_heading','Testimonials Heading'],['contact_heading','Contact Heading'],['contact_intro','Contact Description'],['footer_text','Footer Text'],['feature_label','Featured Label'],['accent_color','Accent Hex Color'],['favicon_url','Favicon URL (or upload below)'],['seo_title','SEO Page Title'],['seo_description','SEO Description'],['seo_keywords','SEO Search Keywords'],['og_image_url','Social Preview Image URL'],['portrait_position','Portrait Crop Position (e.g. center 25%)']];
  const heading=document.createElement('h2');heading.textContent='Website text, headings & appearance';f.insertBefore(heading,f.querySelector('#settingsSaveBtn'));
  fields.forEach(([key,label])=>{const wrap=document.createElement('label');wrap.textContent=label;const input=document.createElement(key==='contact_intro'?'textarea':'input');input.name=key;input.value=s?.[key]||'';input.placeholder=label;wrap.append(input);f.insertBefore(wrap,f.querySelector('#settingsSaveBtn'))});
+ const upload=document.createElement('label');upload.textContent='Upload a new favicon (square PNG or ICO; max 2 MB)';
+ const file=document.createElement('input');file.id='faviconFile';file.type='file';file.accept='image/png,image/x-icon,image/vnd.microsoft.icon,image/webp';upload.append(file);
+ f.insertBefore(upload,f.querySelector('#settingsSaveBtn'));
+ const help=document.createElement('p');help.className='cms-helper';help.textContent='Brand Name updates the header logo and footer. Uploading a favicon sets its URL here automatically. SEO fields improve the page information seen by browsers; Google chooses its own ranking and indexing.';
+ f.insertBefore(help,f.querySelector('#settingsSaveBtn'));
+ const originalSubmit=f.onsubmit;
+ f.onsubmit=async function(e){
+   e.preventDefault();
+   const chosen=file.files[0];
+   if(chosen) {
+     const status=document.getElementById('settingsStatus');
+     if(chosen.size>2*1024*1024){status.textContent='Favicon must be smaller than 2 MB.';return}
+     const btn=document.getElementById('settingsSaveBtn');
+     try {
+       btn.disabled=true; status.textContent='Uploading favicon…';
+       const newUrl=await uploadImage(chosen,'branding');
+       const target=f.querySelector('[name="favicon_url"]');target.value=newUrl;
+     }catch(err){status.textContent=err.message||'Favicon upload failed';btn.disabled=false;return}
+   }
+   return originalSubmit.call(f,e);
+ };
 };
 const originalProjects=showProjects;
 window.showProjects=async function(){
