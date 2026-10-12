@@ -45,8 +45,8 @@ body.wow-site .wow-hero .btn.light:hover{border-color:var(--wow-pink);color:var(
 .wow-portrait-back{position:absolute;inset:48px 10px 0 4px;background:var(--wow-lilac);border-radius:240px 240px 10px 10px;transform:rotate(6deg);z-index:-1}
 body.wow-site .wow-art-side .portrait{position:absolute;inset:34px 29px 12px 18px;margin:0;width:auto;height:auto!important;min-height:0;padding:0;background:#f2c4d7;border:0;border-radius:220px 220px 8px 8px;box-shadow:none;overflow:hidden;transform:rotate(-4deg);isolation:initial}
 body.wow-site .wow-art-side .portrait:before,body.wow-site .wow-art-side .portrait:after{content:none!important;display:none!important}
-body.wow-site .wow-art-side .portrait img{height:100%;width:100%;object-fit:cover;object-position:center 25%;border:0;aspect-ratio:auto;border-radius:220px 220px 8px 8px;display:block}
-.wow-portrait-placeholder{position:absolute;inset:0;display:grid;place-items:center;font:italic 330px 'Playfair Display',serif;color:rgba(255,255,255,.6);background:linear-gradient(160deg,#c79cbe,#ffb3c9);z-index:-1}
+body.wow-site .wow-art-side .portrait img{height:100%;width:100%;object-fit:cover;object-position:center 25%;border:0;aspect-ratio:auto;border-radius:220px 220px 8px 8px;display:block;position:relative;z-index:1}
+.wow-portrait-placeholder{position:absolute;inset:0;display:grid;place-items:center;font:italic 330px 'Playfair Display',serif;color:rgba(255,255,255,.6);background:linear-gradient(160deg,#c79cbe,#ffb3c9);z-index:0}
 .wow-portrait-placeholder span{font-size:76px;position:absolute;right:8%;top:15%;color:var(--wow-dark)}
 .wow-art-side.has-photo .wow-portrait-placeholder{display:none}
 body.wow-site .wow-art-side .portrait-index{display:block;position:absolute;top:auto;left:19px;right:auto;bottom:22px;writing-mode:initial;transform:none;background:rgba(33,24,32,.85);color:white;padding:10px 14px;font:700 9px 'Space Grotesk',sans-serif;letter-spacing:.12em;box-shadow:none;max-width:92%}
@@ -283,3 +283,59 @@ body.wow-site .wow-contact-form{box-shadow:8px 8px 0 rgba(255,255,255,.36);paddi
 }
 @media(max-width:400px){body.wow-site .wow-hero h1{font-size:clamp(45px,11.8vw,55px)!important}.wow-art-side{height:390px;min-height:390px}body.wow-site .buttons{gap:8px}body.wow-site .wow-category-directory .category-tile{min-height:150px}}
 @media(prefers-reduced-motion:reduce){.wow-marquee-track{animation:none}.wow-pulse{animation:none}[data-reveal]{opacity:1;transform:none;transition:none}}
+
+/* Collection detail — same art direction, different composition */
+body.wow-category-page{--rose:#eb6f9a;--plum:#211820;--text:#29202b;background:var(--wow-cream);color:var(--wow-dark);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+body.wow-category-page .wrap{width:min(1300px,calc(100% - 80px))}
+body.wow-category-page .topbar{height:85px;background:var(--wow-dark);padding:0;border:0;color:white}
+body.wow-category-page .topbar:after{content:'';position:absolute;bottom:0;width:100%;height:1px;background:#ffffff22}
+body.wow-category-page .topbar .logo{font:800 clamp(18px,2.1vw,28px) 'Syne',sans-serif!important;letter-spacing:-.065em;color:white}
+body.wow-category-page .topbar .logo span{color:var(--wow-pink);font-style:normal}
+body.wow-category-page .topbar nav{display:flex;gap:28px;align-items:center}
+body.wow-category-page .topbar nav a{color:white;font:800 11px 'Space Grotesk',sans-serif;letter-spacing:.07em}
+body.wow-category-page .topbar nav .nav-btn{background:var(--wow-pink)!important;color:var(--wow-dark)!important;padding:13px 20px;border-radius:100px}
+.wow-category-hero{padding:65px 0 75px;background:var(--wow-dark);color:white;position:relative;overflow:hidden}
+.wow-category-hero:before{content:'✳';position:absolute;top:-90px;right:5%;font-size:470px;color:rgba(250,185,215,.1);line-height:1;transform:rotate(-13deg)}
+.wow-category-back{position:relative;z-index:2;color:var(--wow-pink);font:700 11px 'Space Grotesk',sans-serif;letter-spacing:.14em;display:inline-block;margin-bottom:72px}
+.wow-category-eyebrow{display:block;font:700 11px 'Space Grotesk',sans-serif;letter-spacing:.19em;color:var(--wow-lilac)}
+body.wow-category-page .wow-category-hero h1{font:800 clamp(72px,11vw,175px)/.98 'Syne',sans-serif!important;letter-spacing:-.09em;position:relative;z-index:2;margin:24px 0 45px;overflow-wrap:anywhere}
+.wow-category-hero-bottom{display:flex;justify-content:space-between;gap:25px;border-top:1px solid #6c5e69;padding-top:22px;align-items:end}
+.wow-category-hero-bottom p{font-size:17px;line-height:1.65;max-width:550px;color:#d7c7d3;margin:0}
+.wow-category-number{color:#998997;font:700 10px 'Space Grotesk',sans-serif;letter-spacing:.15em}
+body.wow-category-page .wow-category-results{padding:75px 0 110px}
+.wow-category-results-head{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-bottom:18px;border-bottom:1px solid #c9bcc4;margin-bottom:35px;color:#755f70;font:700 11px 'Space Grotesk',sans-serif;letter-spacing:.12em}
+body.wow-category-page .wow-category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:45px 24px}
+body.wow-category-page .wow-category-grid .project-card{min-width:0}
+body.wow-category-page .wow-category-grid .project-card:nth-child(3n+2){padding-top:58px}
+body.wow-category-page .wow-category-grid .project-image{border-radius:3px;overflow:hidden;background:#ded0ec;border:0;box-shadow:none}
+body.wow-category-page .wow-category-grid .project-image img{aspect-ratio:4/3;object-fit:cover;transition:transform .6s}
+body.wow-category-page .wow-category-grid .project-card:nth-child(3n+2) .project-image img{aspect-ratio:4/4.5}
+body.wow-category-page .wow-category-grid .project-image:after{content:'OPEN PROJECT ↗';background:var(--wow-pink);color:var(--wow-dark);border:0;border-radius:60px;padding:12px 17px;opacity:0;transform:translateY(8px);bottom:15px;right:15px}
+body.wow-category-page .wow-category-grid .project-card:hover .project-image img{transform:scale(1.04)}
+body.wow-category-page .wow-category-grid .project-card:hover .project-image:after{opacity:1;transform:none}
+body.wow-category-page .wow-category-grid small{color:#a45e84;font:800 10px 'Space Grotesk',sans-serif;letter-spacing:.12em;margin-top:17px}
+body.wow-category-page .wow-category-grid h3{font:800 clamp(23px,2.7vw,35px) 'Syne',sans-serif!important;letter-spacing:-.065em;margin:7px 0}
+body.wow-category-page .wow-category-grid p{color:#706774;font-size:13px;line-height:1.6}
+body.wow-category-page .wow-category-results .wow-more{background:var(--wow-dark);color:white;border-color:var(--wow-dark);margin-top:44px}
+body.wow-category-page .wow-category-results .wow-more[hidden]{display:none}
+.wow-category-footer{background:var(--wow-pink);padding:45px 0;color:var(--wow-dark)}
+.wow-category-footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:25px}
+.wow-category-footer .wrap>div{display:flex;flex-direction:column;gap:10px}
+.wow-category-footer span{font:800 10px 'Space Grotesk',sans-serif;letter-spacing:.14em}
+.wow-category-footer b{font:800 clamp(28px,4vw,55px) 'Syne',sans-serif;letter-spacing:-.06em}
+.wow-category-footer a{border:2px solid var(--wow-dark);border-radius:100px;padding:14px 19px;font:800 12px 'Space Grotesk',sans-serif;white-space:nowrap}
+@media(max-width:700px){
+body.wow-category-page .wrap{width:calc(100% - 36px)}
+body.wow-category-page .topbar{height:70px}
+body.wow-category-page .topbar nav{gap:12px}
+body.wow-category-page .topbar nav a:not(.nav-btn){display:none}
+body.wow-category-page .topbar nav .nav-btn{font-size:10px;padding:11px}
+.wow-category-hero{padding:38px 0 50px}
+.wow-category-back{margin-bottom:55px}
+body.wow-category-page .wow-category-hero h1{font-size:clamp(52px,11.5vw,90px);margin:22px 0 35px}
+.wow-category-hero-bottom{display:block}.wow-category-number{display:none}
+body.wow-category-page .wow-category-grid{grid-template-columns:1fr;gap:36px}
+body.wow-category-page .wow-category-grid .project-card:nth-child(n){padding-top:0}
+body.wow-category-page .wow-category-grid .project-image img,body.wow-category-page .wow-category-grid .project-card:nth-child(n) .project-image img{aspect-ratio:4/3}
+.wow-category-footer .wrap{align-items:flex-start;flex-direction:column}
+}
