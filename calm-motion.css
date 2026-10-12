@@ -78,3 +78,49 @@
     transform: none !important;
   }
 }
+
+
+/* Additional light interactions (never change page layout or theme). */
+@media (prefers-reduced-motion: no-preference) {
+  /* The JS adds calm-reveal only when IntersectionObserver is supported. */
+  .calm-reveal {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    transition:
+      opacity .7s cubic-bezier(.2,.7,.2,1),
+      transform .7s cubic-bezier(.2,.7,.2,1);
+    transition-delay: var(--calm-delay, 0ms);
+  }
+  .calm-reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+  .calm-reveal.is-visible.project-card:hover,
+  .calm-reveal.is-visible.category-tile:hover {
+    transform: translate3d(0,-4px,0);
+  }
+  .btn {
+    transition: transform .26s ease, box-shadow .26s ease,
+      color .26s ease, background-color .26s ease, border-color .26s ease;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn:active {
+    transform: translateY(0);
+  }
+  .portrait-note {
+    animation: calm-note-float 5s ease-in-out infinite;
+  }
+  @keyframes calm-note-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  .calm-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .portrait-note { animation: none !important; }
+  .btn { transition: none !important; }
+  .btn:hover, .btn:active { transform: none !important; }
+}
