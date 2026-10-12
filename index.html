@@ -3,14 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shuria Simu — Graphic Designer</title>
-  <meta name="description" content="Professional graphic design portfolio of Shuria Simu.">
-  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="modern.css">
+  <title>Shuria Simu | Graphic Designer, Branding & Creative Portfolio</title>
+  <meta name="description" content="Explore Shuria Simu’s graphic design portfolio featuring brand identities, creative advertising, packaging, social media visuals and selected design projects.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Shuria Simu">
+  <meta name="theme-color" content="#382c35">
+  <link rel="canonical" href="https://shuria-simu.github.io/">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Shuria Simu">
+  <meta property="og:title" content="Shuria Simu | Graphic Designer & Creative Portfolio">
+  <meta property="og:description" content="Explore thoughtful branding, advertising and visual design projects by Shuria Simu.">
+  <meta property="og:url" content="https://shuria-simu.github.io/">
+  <meta property="og:image" content="https://okyeoskbgfqsbwgjjoyw.supabase.co/storage/v1/object/public/portfolio/profile/1789746775474-uwmhzj.jpg">
+  <meta property="og:image:alt" content="Portrait of graphic designer Shuria Simu">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Shuria Simu | Graphic Design Portfolio">
+  <meta name="twitter:description" content="A collection of branding, advertising, and graphic design work.">
+  <meta name="twitter:image" content="https://okyeoskbgfqsbwgjjoyw.supabase.co/storage/v1/object/public/portfolio/profile/1789746775474-uwmhzj.jpg">
+  <script type="application/ld+json" id="seoStructuredData">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Shuria Simu","url":"https://shuria-simu.github.io/","description":"Graphic design, brand identity and visual portfolio"},{"@type":"Person","name":"Shuria Simu","alternateName":"Shuria Akter Shimu","jobTitle":"Graphic Designer","url":"https://shuria-simu.github.io/","image":"https://okyeoskbgfqsbwgjjoyw.supabase.co/storage/v1/object/public/portfolio/profile/1789746775474-uwmhzj.jpg","knowsAbout":["Graphic Design","Brand Identity","Packaging Design","Visual Communication"]}]}</script>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="modern.css"><link rel="stylesheet" href="polish.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <header class="topbar">
-  <a class="logo" href="#home">Shuria <span>Simu.</span></a>
+  <a class="logo" id="siteLogo" data-brand href="#home" aria-label="Shuria Simu home">Shuria <span>Simu.</span></a>
   <nav id="siteNav">
     <a href="#about">About</a>
     <a href="#services">Services</a>
@@ -39,7 +58,8 @@
     </div>
 
     <div class="portrait">
-     <img id="profileImage" alt="Shuria Simu" style="display:none;">
+      <div class="portrait-index" aria-hidden="true">DESIGNER / PORTFOLIO</div>
+      <img id="profileImage" alt="Shuria Simu, graphic designer" loading="eager" fetchpriority="high" style="display:none;">
       <div class="portrait-note"><small>Creative Focus</small><b>Branding · Editorial · Social</b></div>
     </div>
   </section>
@@ -115,12 +135,12 @@
 </main>
 
 <footer class="wrap footer">
-  <div><b>Shuria Simu</b><small id="footerText">Graphic Designer & Visual Storyteller</small></div>
+  <div><b data-brand>Shuria Simu</b><small id="footerText">Graphic Designer & Visual Storyteller</small></div>
   <div id="socialLinks"></div>
-  <small>© <span id="year"></span> Shuria Simu.</small>
+  <small>© <span id="year"></span> <span data-brand>Shuria Simu</span>. All rights reserved.</small>
 </footer>
 
 <script src="config.js"></script>
-<script src="script.js"></script><script src="modern.js"></script>
+<script src="script.js"></script><script src="modern.js"></script><script src="brand-seo.js"></script>
 </body>
 </html>

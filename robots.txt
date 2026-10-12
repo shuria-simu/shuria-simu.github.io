@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shuria-simu.github.io/sitemap.xml
