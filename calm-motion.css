@@ -1,0 +1,80 @@
+/* Gentle motion only — keep the original soft, clean portfolio unchanged. */
+@keyframes calm-arrive {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes calm-image-arrive {
+  from { opacity: 0; transform: translateY(8px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero .badge {
+    animation: calm-arrive .6s ease-out both;
+  }
+  .hero h1 {
+    animation: calm-arrive .7s .08s ease-out both;
+  }
+  .hero-copy > p {
+    animation: calm-arrive .65s .15s ease-out both;
+  }
+  .hero .buttons {
+    animation: calm-arrive .65s .22s ease-out both;
+  }
+  .hero .portrait {
+    animation: calm-image-arrive .85s .16s ease-out both;
+  }
+}
+.project-card .project-image img {
+  transition: transform .42s ease, filter .42s ease;
+}
+.project-card:hover .project-image img {
+  transform: scale(1.025);
+}
+.project-card {
+  transition: transform .24s ease;
+}
+.project-card:hover {
+  transform: translateY(-3px);
+}
+.category-tile {
+  transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+}
+.category-tile:hover {
+  transform: translateY(-3px);
+}
+.topbar nav a:not(.nav-btn) {
+  position: relative;
+}
+.topbar nav a:not(.nav-btn)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -5px;
+  height: 1px;
+  background: var(--rose);
+  transition: right .24s ease;
+}
+.topbar nav a:not(.nav-btn):hover::after {
+  right: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero .badge,
+  .hero h1,
+  .hero-copy > p,
+  .hero .buttons,
+  .hero .portrait {
+    animation: none !important;
+  }
+  .project-card,
+  .project-card .project-image img,
+  .category-tile,
+  .topbar nav a:not(.nav-btn)::after {
+    transition: none !important;
+  }
+  .project-card:hover,
+  .category-tile:hover,
+  .project-card:hover .project-image img {
+    transform: none !important;
+  }
+}
