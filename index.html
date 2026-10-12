@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shuria Simu — Graphic Designer</title>
   <meta name="description" content="Professional graphic design portfolio of Shuria Simu.">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="modern.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <header class="topbar">
   <a class="logo" href="#home">Shuria <span>Simu.</span></a>
-  <nav>
+  <nav id="siteNav">
     <a href="#about">About</a>
     <a href="#services">Services</a>
     <a href="#portfolio">Portfolio</a>
@@ -24,8 +24,8 @@
 <main>
   <section id="home" class="hero wrap">
     <div class="hero-copy">
-      <span class="badge">✦ Graphic Designer & Visual Storyteller</span>
-      <h1>Designing brands with <em>grace & impact.</em></h1>
+      <span class="badge" id="heroKicker">Independent graphic designer & visual storyteller</span>
+      <h1 id="heroTitle">Design with feeling. <em>Made to stand out.</em></h1>
       <p id="heroText">I’m Shuria Simu, creating thoughtful identities, campaigns and visual experiences that feel elegant, modern and memorable.</p>
       <div class="buttons">
         <a href="#portfolio" class="btn dark">View My Work</a>
@@ -45,7 +45,7 @@
   </section>
 
   <section id="about" class="section wrap">
-    <header class="section-title"><span>ABOUT ME</span><h2>Hello, I’m Shuria.</h2></header>
+    <header class="section-title"><span>ABOUT ME</span><h2 id="aboutHeading">Hello, I’m Shuria.</h2></header>
     <div class="about-grid">
       <article class="panel">
         <p id="aboutText">I create visual identities and design systems for brands that want to feel modern, expressive and beautifully put together.</p>
@@ -62,20 +62,20 @@
 
   <section id="services" class="section soft">
     <div class="wrap">
-      <header class="section-title"><span>SERVICES</span><h2>Design that looks lovely—and works hard.</h2></header>
+      <header class="section-title"><span>SERVICES</span><h2 id="servicesHeading">Design that looks lovely—and works hard.</h2></header>
       <div id="serviceGrid" class="card-grid"></div>
     </div>
   </section>
 
   <section id="portfolio" class="section wrap">
-    <header class="section-title"><span>SELECTED WORK</span><h2>Projects worth remembering.</h2></header>
-    <div id="filters" class="filters"></div>
-    <div id="portfolioGrid" class="project-grid"></div>
+    <header class="section-title"><span>SELECTED WORK</span><h2 id="portfolioHeading">Projects worth remembering.</h2></header>
+    <p class="featured-label" id="featureLabel">Selected with love</p><div class="category-directory" id="categoryDirectory"></div><div class="portfolio-controls"><div id="filters" class="filters"></div></div>
+    <div id="portfolioGrid" class="project-grid"></div><button class="btn light more-btn" id="showMoreProjects" hidden>View more work ↓</button>
   </section>
 
-  <section id="experience" class="section soft">
+  <div id="customSections"></div><section id="experience" class="section soft">
     <div class="wrap">
-      <header class="section-title"><span>JOURNEY</span><h2>Experience & Education.</h2></header>
+      <header class="section-title"><span>JOURNEY</span><h2 id="experienceHeading">Experience & Education.</h2></header>
       <div class="split">
         <div><h3>Experience</h3><div id="experienceList" class="list"></div></div>
         <div><h3>Education</h3><div id="educationList" class="list"></div></div>
@@ -84,13 +84,13 @@
   </section>
 
   <section id="awards" class="section wrap">
-    <header class="section-title"><span>RECOGNITION</span><h2>Awards & Certificates.</h2></header>
+    <header class="section-title"><span>RECOGNITION</span><h2 id="awardsHeading">Awards & Certificates.</h2></header>
     <div id="awardGrid" class="card-grid"></div>
   </section>
 
   <section id="testimonials" class="section soft">
     <div class="wrap">
-      <header class="section-title"><span>KIND WORDS</span><h2>What clients say.</h2></header>
+      <header class="section-title"><span>KIND WORDS</span><h2 id="testimonialsHeading">What clients say.</h2></header>
       <div id="testimonialGrid" class="card-grid"></div>
     </div>
   </section>
@@ -98,8 +98,8 @@
   <section id="contact" class="section wrap">
     <div class="contact">
       <div>
-        <header class="section-title"><span>CONTACT</span><h2>Tell me what you’re dreaming up.</h2></header>
-        <p class="muted">Share your project idea and Shuria can reply later.</p>
+        <header class="section-title"><span>CONTACT</span><h2 id="contactHeading">Tell me what you’re dreaming up.</h2></header>
+        <p class="muted" id="contactIntro">Share your project idea and Shuria can reply later.</p>
         <p><strong>Email:</strong> <span id="contactEmail">hello@shuriasimu.com</span></p>
       </div>
       <form id="contactForm" class="panel form">
@@ -115,12 +115,12 @@
 </main>
 
 <footer class="wrap footer">
-  <div><b>Shuria Simu</b><small>Graphic Designer & Visual Storyteller</small></div>
+  <div><b>Shuria Simu</b><small id="footerText">Graphic Designer & Visual Storyteller</small></div>
   <div id="socialLinks"></div>
   <small>© <span id="year"></span> Shuria Simu.</small>
 </footer>
 
 <script src="config.js"></script>
-<script src="script.js"></script>
+<script src="script.js"></script><script src="modern.js"></script>
 </body>
 </html>
