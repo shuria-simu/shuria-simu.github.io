@@ -339,3 +339,6 @@ body.wow-category-page .wow-category-grid .project-card:nth-child(n){padding-top
 body.wow-category-page .wow-category-grid .project-image img,body.wow-category-page .wow-category-grid .project-card:nth-child(n) .project-image img{aspect-ratio:4/3}
 .wow-category-footer .wrap{align-items:flex-start;flex-direction:column}
 }
+
+body.wow-site .wow-timeline.wow-timeline-single{grid-template-columns:minmax(0,1fr);max-width:870px}
+body.wow-site .wow-timeline>div[hidden]{display:none}
